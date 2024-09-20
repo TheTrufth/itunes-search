@@ -3,7 +3,7 @@
 ## Features
 
 ✅ Searches as you type \
-✅ Scrolling down end of list gives more results (lazy loading) \
+✅ Scrolling down end of list gives more results (lazy loading) NOTE: New results are shown at the top! \
 ✅ Reset button to reset results and go back to initial page \
 ✅ Error handling features such as Retry button \
 ✅ UI is Mobile-friendly

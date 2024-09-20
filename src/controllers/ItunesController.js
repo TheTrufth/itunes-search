@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { searchItunes } from "../api/itunes";
 
 const useItunesController = () => {
@@ -11,7 +11,7 @@ const useItunesController = () => {
 
   const observer = useRef(); // reference for the observer
 
-  const handleSearch = async () => {
+  const handleSearch = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -19,14 +19,13 @@ const useItunesController = () => {
       const res = await searchItunes(query, 10, 0); // Display 10 items and initial offset is 0
       setResults(res);
       setHasMore(res.length > 0);
-      console.log("Result =>" + res);
     } catch (err) {
       setError("Something went wrong while fetching the results! Error: ", err);
     } finally {
       setLoading(false);
       setLoaded(true);
     }
-  };
+  }, [query]);
 
   // Need to keep track of last card so we know when to fetch the next results from Itunes API
   const lastCardRef = (node) => {

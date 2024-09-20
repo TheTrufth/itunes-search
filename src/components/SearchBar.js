@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export default function SearchBar({
   query,
   setQuery,
@@ -5,6 +7,27 @@ export default function SearchBar({
   setResults,
   setLoaded,
 }) {
+  const [debouncedQuery, setDebouncedQuery] = useState(query);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 500); // 500ms delay to wait for the user to stop typing
+
+    // Cleanup the timeout if the user types before the delay ends
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [query]);
+
+  // Trigger search whenever debouncedQuery changes
+  useEffect(() => {
+    if (debouncedQuery.trim() === "") {
+      return; // Avoid searching if the query is empty
+    }
+    handleSearch();
+  }, [debouncedQuery, handleSearch, setQuery]);
+
   return (
     <>
       <div className="pt-10 flex flex-row gap-x-5 justify-center text-xl md:text-2xl">
@@ -15,7 +38,6 @@ export default function SearchBar({
           onChange={(e) => {
             e.preventDefault();
             setQuery(e.target.value);
-            handleSearch();
           }}
           placeholder=" Type in a song name, artist, or album!"
         />
