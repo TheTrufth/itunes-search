@@ -32,11 +32,14 @@ const useItunesController = () => {
   const lastCardRef = (node) => {
     if (loading) return;
     if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver((entities) => {
-      if (entities[0].isIntersecting && hasMore) {
-        loadMore();
-      }
-    });
+    observer.current = new IntersectionObserver(
+      (entities) => {
+        if (entities[0].isIntersecting && hasMore) {
+          loadMore();
+        }
+      },
+      { threshold: 0.9 }
+    );
     if (node) observer.current.observe(node);
   };
 
