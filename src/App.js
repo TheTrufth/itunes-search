@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import MainContent from "./components/MainContent";
+import SearchBar from "./components/SearchBar";
+import useItunesController from "./controllers/ItunesController";
 
 function App() {
+  const {
+    query,
+    results,
+    loading,
+    error,
+    loaded,
+    handleSearch,
+    setQuery,
+    setResults,
+    setLoaded,
+    lastCardRef,
+  } = useItunesController();
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <SearchBar
+          query={query}
+          setQuery={setQuery}
+          handleSearch={handleSearch}
+          setResults={setResults}
+          setLoaded={setLoaded}
+        />
       </header>
+      <div>
+        <MainContent
+          results={results}
+          loading={loading}
+          error={error}
+          handleSearch={handleSearch}
+          lastCardRef={lastCardRef}
+          loaded={loaded}
+        />
+      </div>
     </div>
   );
 }
