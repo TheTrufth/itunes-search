@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function SearchBar({
-  query,
-  setQuery,
-  handleSearch,
-  setResults,
-  setLoaded,
-}) {
+export default function SearchBar({ query, setQuery }) {
   const [debouncedQuery, setDebouncedQuery] = useState(query);
 
   useEffect(() => {
@@ -25,8 +19,8 @@ export default function SearchBar({
     if (debouncedQuery.trim() === "") {
       return; // Avoid searching if the query is empty
     }
-    handleSearch();
-  }, [debouncedQuery, handleSearch, setQuery]);
+    // handleSearch();
+  }, [debouncedQuery, setQuery]);
 
   return (
     <>
@@ -45,7 +39,7 @@ export default function SearchBar({
           <button
             className="rounded-xl bg-black p-1"
             type="submit"
-            onClick={handleSearch}
+            // onClick={handleSearch}
           >
             Search
           </button>
@@ -53,8 +47,8 @@ export default function SearchBar({
             className="rounded-xl bg-black p-1"
             type="submit"
             onClick={() => {
-              setResults([]);
-              setLoaded(false);
+              // setResults([]);
+              // setLoaded(false);
               setQuery("");
             }}
           >

@@ -1,16 +1,20 @@
 const { default: Card } = require("./Card");
 
-const CardList = ({ results, lastCardRef }) => {
+const CardList = ({ results, bottomBoundaryRef }) => {
   return (
-    <ul className="text-black flex flex-col items-center h-[52rem] mt-32 flex-grow-0 space-y-5 overflow-y-auto ">
-      {results.map((result, index) => {
-        if (results.length === index + 1) {
-          return <Card key={index} result={result} ref={lastCardRef} />;
-        } else {
-          return <Card key={index} result={result} />;
-        }
-      })}
-    </ul>
+    <>
+      <ul className="text-black flex flex-col items-center h-[52rem] mt-32 flex-grow-0 space-y-5 overflow-y-auto ">
+        {results.length > 0 &&
+          results.map((result, index) => {
+            return <Card key={index} result={result} />;
+          })}
+        <div
+          id="page-bottom-boundary"
+          className="border-solid border border-red-900 p-5"
+          ref={bottomBoundaryRef}
+        ></div>
+      </ul>
+    </>
   );
 };
 

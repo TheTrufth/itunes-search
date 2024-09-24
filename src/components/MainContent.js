@@ -1,17 +1,10 @@
 import CardList from "./CardList";
 
-export default function MainContent({
-  loading,
-  error,
-  results,
-  lastCardRef,
-  handleSearch,
-  loaded,
-}) {
+export default function MainContent({ resData, bottomBoundaryRef }) {
   return (
     <>
-      {loading && <p className="z-50 ">Loading...</p>}
-      {error && (
+      {resData.fetching && <p className="z-50 ">Loading...</p>}
+      {/* {error && (
         <div className="mt-10">
           <p className="text-2xl">{error}</p>
           <button
@@ -21,11 +14,17 @@ export default function MainContent({
             Retry
           </button>
         </div>
+      )} */}
+      {resData && resData.results.length > 0 && (
+        <CardList
+          results={resData.results}
+          bottomBoundaryRef={bottomBoundaryRef}
+        />
       )}
-      {!loading && !error && results.length > 0 && (
-        <CardList results={results} lastCardRef={lastCardRef} />
-      )}
-      {loaded && !loading && results.length === 0 && <p>No results found</p>}
+      {/* {!loading && !error && results.length > 0 && (
+        <CardList results={results} bottomBoundaryRef={bottomBoundaryRef} />
+      )} */}
+      {/* {loaded && !loading && results.length === 0 && <p>No results found</p>} */}
     </>
   );
 }
